@@ -1,0 +1,99 @@
+
+Setting environment for using XAMPP for Windows.
+UAE LAPTOP BAZAR@DESKTOP-5515RUL c:\Users\UAE LAPTOP BAZAR\Downloads\xmm
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| millati            |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| student            |
+| test               |
+| unistudent         |
++--------------------+
+8 rows in set (0.141 sec)
+
+MariaDB [(none)]> use unistudent;
+Database changed
+MariaDB [unistudent]> create table lab_grades(
+    -> student_id char(4),
+    -> name varchar (30),
+    -> major char(3),
+    -> section char (1),
+    -> days_present int,
+    -> project_marks double,
+    -> cgpa decimal(3,2),
+    -> submission_date date
+    -> );
+ERROR 1050 (42S01): Table 'lab_grades' already exists
+MariaDB [unistudent]> create table all_marks(
+    -> student_id char(4),
+    -> name varchar (30),
+    -> major char(3),
+    -> section char (1),
+    -> days_present int,
+    -> project_marks double,
+    -> cgpa decimal(3,2),
+    -> submission_date date
+    -> );
+Query OK, 0 rows affected (0.061 sec)
+
+MariaDB [unistudent]> show tables;
++----------------------+
+| Tables_in_unistudent |
++----------------------+
+| all_marks            |
+| lab_grades           |
++----------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [unistudent]> describe lab_grades;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| student_id      | char(4)      | YES  |     | NULL    |       |
+| name            | varchar(30)  | YES  |     | NULL    |       |
+| major           | char(3)      | YES  |     | NULL    |       |
+| section         | char(1)      | YES  |     | NULL    |       |
+| days_present    | int(11)      | YES  |     | NULL    |       |
+| project_marks   | double       | YES  |     | NULL    |       |
+| cgpa            | decimal(3,2) | YES  |     | NULL    |       |
+| submission_date | date         | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+8 rows in set (0.086 sec)
+
+MariaDB [unistudent]> insert into lab_grades values ('s001','abir','cs','1',10,18.5,3.91,'2018-09-15'),
+    -> ('s002','naima','cs','2',10,18,3.88,'2018-09-16'),
+    -> ('s003','nafis','EEE','1',8,20,3.99,'2018-07-15'),
+    -> ('s004','millati','cse','1',9,18,3.89,'2018-09-15'),
+    -> ('s005','anwar','cse','1',10,19,3.99,'2018-08-17');
+Query OK, 5 rows affected (0.131 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [unistudent]> select * from lab_grades;
++------------+---------+-------+---------+--------------+---------------+------+-----------------+
+| student_id | name    | major | section | days_present | project_marks | cgpa | submission_date |
++------------+---------+-------+---------+--------------+---------------+------+-----------------+
+| s001       | Abir    | cs    | 1       |           10 |          18.5 | 3.91 | 2024-01-10      |
+| s001       | abir    | cs    | 1       |           10 |          18.5 | 3.91 | 2018-09-15      |
+| s002       | naima   | cs    | 2       |           10 |            18 | 3.88 | 2018-09-16      |
+| s003       | nafis   | EEE   | 1       |            8 |            20 | 3.99 | 2018-07-15      |
+| s004       | millati | cse   | 1       |            9 |            18 | 3.89 | 2018-09-15      |
+| s005       | anwar   | cse   | 1       |           10 |            19 | 3.99 | 2018-08-17      |
++------------+---------+-------+---------+--------------+---------------+------+-----------------+
+6 rows in set (0.001 sec)
+
+MariaDB [unistudent]>
