@@ -1,0 +1,93 @@
+
+Setting environment for using XAMPP for Windows.
+UAE LAPTOP BAZAR@DESKTOP-5515RUL c:\Users\UAE LAPTOP BAZAR\Downloads\xmm
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| millati            |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| student            |
+| test               |
+| unistudent         |
++--------------------+
+8 rows in set (0.002 sec)
+
+MariaDB [(none)]> create database library book record;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'book record' at line 1
+MariaDB [(none)]> create database library_book_record;
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [(none)]> show databases;
++---------------------+
+| Database            |
++---------------------+
+| information_schema  |
+| library_book_record |
+| millati             |
+| mysql               |
+| performance_schema  |
+| phpmyadmin          |
+| student             |
+| test                |
+| unistudent          |
++---------------------+
+9 rows in set (0.001 sec)
+
+MariaDB [(none)]> use library_book_record;
+Database changed
+MariaDB [library_book_record]> create table books(
+    -> book_id int primary key,
+    -> title varchar(100),
+    -> author varchar(100),
+    -> year_published int);
+Query OK, 0 rows affected (0.064 sec)
+
+MariaDB [library_book_record]> insert into books (book_id,title,author,year_published) values (
+    -> insert into books (book_id,title,author,year_published) values
+    -> (1, 'the alchemist', 'paulo coelho', 1988),
+    -> (2, 'harry potter', 'j.k.rowling', 1997),
+    -> (3, 'atomic habits', 'james clear', 2018);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'into books (book_id,title,author,year_published) values
+(1, 'the alchemist',...' at line 2
+MariaDB [library_book_record]> describe books;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| book_id        | int(11)      | NO   | PRI | NULL    |       |
+| title          | varchar(100) | YES  |     | NULL    |       |
+| author         | varchar(100) | YES  |     | NULL    |       |
+| year_published | int(11)      | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.045 sec)
+
+MariaDB [library_book_record]> insert into books values (1, 'the alchemist', 'paulo coelho', 1988),
+    -> (2, 'harry potter', 'j.k.rowling',1997),
+    -> (3, 'atomic habits', 'james clear', 2018);
+Query OK, 3 rows affected (0.055 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [library_book_record]> select * from books;
++---------+---------------+--------------+----------------+
+| book_id | title         | author       | year_published |
++---------+---------------+--------------+----------------+
+|       1 | the alchemist | paulo coelho |           1988 |
+|       2 | harry potter  | j.k.rowling  |           1997 |
+|       3 | atomic habits | james clear  |           2018 |
++---------+---------------+--------------+----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [library_book_record]>
