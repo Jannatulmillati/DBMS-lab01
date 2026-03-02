@@ -1,0 +1,292 @@
+
+Setting environment for using XAMPP for Windows.
+UAE LAPTOP BAZAR@DESKTOP-5515RUL c:\Users\UAE LAPTOP BAZAR\Downloads\xmm
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++---------------------+
+| Database            |
++---------------------+
+| information_schema  |
+| library_book_record |
+| millati             |
+| mysql               |
+| performance_schema  |
+| phpmyadmin          |
+| student             |
+| test                |
+| unistudent          |
++---------------------+
+9 rows in set (0.120 sec)
+
+MariaDB [(none)]> use unistudent;
+Database changed
+MariaDB [unistudent]> create table lab_grades (
+    -> student_id char(4),
+    -> name varchar(30),
+    -> major char(3,
+    -> major char(3),
+    -> section char(1),
+    -> days_present int,
+    -> project_marks double,
+    -> cgpa decimal(3,2),
+    -> suubmission_date date);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '
+major char(3),
+section char(1),
+days_present int,
+project_marks double,
+cgpa...' at line 4
+MariaDB [unistudent]> show tables;
++----------------------+
+| Tables_in_unistudent |
++----------------------+
+| all_marks            |
+| lab_grades           |
++----------------------+
+2 rows in set (0.002 sec)
+
+MariaDB [unistudent]> describe lab_grades;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| student_id      | char(4)      | YES  |     | NULL    |       |
+| name            | varchar(30)  | YES  |     | NULL    |       |
+| major           | char(3)      | YES  |     | NULL    |       |
+| section         | char(1)      | YES  |     | NULL    |       |
+| days_present    | int(11)      | YES  |     | NULL    |       |
+| project_marks   | double       | YES  |     | NULL    |       |
+| cgpa            | decimal(3,2) | YES  |     | NULL    |       |
+| submission_date | date         | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+8 rows in set (0.088 sec)
+
+MariaDB [unistudent]> select*from lab_grades;
++------------+---------+-------+---------+--------------+---------------+------+-----------------+
+| student_id | name    | major | section | days_present | project_marks | cgpa | submission_date |
++------------+---------+-------+---------+--------------+---------------+------+-----------------+
+| s001       | Abir    | cs    | 1       |           10 |          18.5 | 3.91 | 2024-01-10      |
+| s001       | abir    | cs    | 1       |           10 |          18.5 | 3.91 | 2018-09-15      |
+| s002       | naima   | cs    | 2       |           10 |            18 | 3.88 | 2018-09-16      |
+| s003       | nafis   | EEE   | 1       |            8 |            20 | 3.99 | 2018-07-15      |
+| s004       | millati | cse   | 1       |            9 |            18 | 3.89 | 2018-09-15      |
+| s005       | anwar   | cse   | 1       |           10 |            19 | 3.99 | 2018-08-17      |
++------------+---------+-------+---------+--------------+---------------+------+-----------------+
+6 rows in set (0.126 sec)
+
+MariaDB [unistudent]> alter table lab_grades add project_title char(10);
+Query OK, 0 rows affected (0.015 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [unistudent]> alter table lab_grades modify column project_title varchar(50);
+Query OK, 6 rows affected (0.101 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [unistudent]> alter table lab_grades drop column project_title;
+Query OK, 0 rows affected (0.065 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [unistudent]> alter table lab_grades change submission_date sub_date date;
+Query OK, 0 rows affected (0.065 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [unistudent]> update lab_grades set major = 'cse' where name ='Abir';
+Query OK, 2 rows affected (0.054 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [unistudent]> update lab_grades set name='nafees',project_marks=16 where student_id='s003';
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [unistudent]> delete from lab_grades where name = 'naima';
+Query OK, 1 row affected (0.053 sec)
+
+MariaDB [unistudent]> delete from lab_grades where days_present<8;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [unistudent]> select * from lab_grades;
++------------+---------+-------+---------+--------------+---------------+------+------------+
+| student_id | name    | major | section | days_present | project_marks | cgpa | sub_date   |
++------------+---------+-------+---------+--------------+---------------+------+------------+
+| s001       | Abir    | cse   | 1       |           10 |          18.5 | 3.91 | 2024-01-10 |
+| s001       | abir    | cse   | 1       |           10 |          18.5 | 3.91 | 2018-09-15 |
+| s003       | nafees  | EEE   | 1       |            8 |            16 | 3.99 | 2018-07-15 |
+| s004       | millati | cse   | 1       |            9 |            18 | 3.89 | 2018-09-15 |
+| s005       | anwar   | cse   | 1       |           10 |            19 | 3.99 | 2018-08-17 |
++------------+---------+-------+---------+--------------+---------------+------+------------+
+5 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select student_id,name,project_marks from lab_grades;
++------------+---------+---------------+
+| student_id | name    | project_marks |
++------------+---------+---------------+
+| s001       | Abir    |          18.5 |
+| s001       | abir    |          18.5 |
+| s003       | nafees  |            16 |
+| s004       | millati |            18 |
+| s005       | anwar   |            19 |
++------------+---------+---------------+
+5 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select name, project_marks + days_present*5/12 as total_marks from lab_grades;
++---------+--------------+
+| name    | total_marks  |
++---------+--------------+
+| Abir    | 22.666666666 |
+| abir    | 22.666666666 |
+| nafees  | 19.333333333 |
+| millati |        21.75 |
+| anwar   | 23.166666666 |
++---------+--------------+
+5 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select upper(name),lower(name) from lab_grades;
++-------------+-------------+
+| upper(name) | lower(name) |
++-------------+-------------+
+| ABIR        | abir        |
+| ABIR        | abir        |
+| NAFEES      | nafees      |
+| MILLATI     | millati     |
+| ANWAR       | anwar       |
++-------------+-------------+
+5 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select major from lab_grades;
++-------+
+| major |
++-------+
+| cse   |
+| cse   |
+| EEE   |
+| cse   |
+| cse   |
++-------+
+5 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select distinct major from lab_grades;
++-------+
+| major |
++-------+
+| cse   |
+| EEE   |
++-------+
+2 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select *from lab_grades order by name;
++------------+---------+-------+---------+--------------+---------------+------+------------+
+| student_id | name    | major | section | days_present | project_marks | cgpa | sub_date   |
++------------+---------+-------+---------+--------------+---------------+------+------------+
+| s001       | Abir    | cse   | 1       |           10 |          18.5 | 3.91 | 2024-01-10 |
+| s001       | abir    | cse   | 1       |           10 |          18.5 | 3.91 | 2018-09-15 |
+| s005       | anwar   | cse   | 1       |           10 |            19 | 3.99 | 2018-08-17 |
+| s004       | millati | cse   | 1       |            9 |            18 | 3.89 | 2018-09-15 |
+| s003       | nafees  | EEE   | 1       |            8 |            16 | 3.99 | 2018-07-15 |
++------------+---------+-------+---------+--------------+---------------+------+------------+
+5 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select * from lab_grades order by name desc, submission_date asc;
+ERROR 1054 (42S22): Unknown column 'submission_date' in 'order clause'
+MariaDB [unistudent]> select * from lab_grades order by name desc, sub_date asc;
++------------+---------+-------+---------+--------------+---------------+------+------------+
+| student_id | name    | major | section | days_present | project_marks | cgpa | sub_date   |
++------------+---------+-------+---------+--------------+---------------+------+------------+
+| s003       | nafees  | EEE   | 1       |            8 |            16 | 3.99 | 2018-07-15 |
+| s004       | millati | cse   | 1       |            9 |            18 | 3.89 | 2018-09-15 |
+| s005       | anwar   | cse   | 1       |           10 |            19 | 3.99 | 2018-08-17 |
+| s001       | abir    | cse   | 1       |           10 |          18.5 | 3.91 | 2018-09-15 |
+| s001       | Abir    | cse   | 1       |           10 |          18.5 | 3.91 | 2024-01-10 |
++------------+---------+-------+---------+--------------+---------------+------+------------+
+5 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select name, days_present,project_marks from lab_grades where project_marks>17;
++---------+--------------+---------------+
+| name    | days_present | project_marks |
++---------+--------------+---------------+
+| Abir    |           10 |          18.5 |
+| abir    |           10 |          18.5 |
+| millati |            9 |            18 |
+| anwar   |           10 |            19 |
++---------+--------------+---------------+
+4 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select name, project_marks from lab_grades where major='cse';
++---------+---------------+
+| name    | project_marks |
++---------+---------------+
+| Abir    |          18.5 |
+| abir    |          18.5 |
+| millati |            18 |
+| anwar   |            19 |
++---------+---------------+
+4 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select name, project_marks from lab_grades where project marks between 17and19;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'marks between 17and19' at line 1
+MariaDB [unistudent]> select name, project_marks from lab_grades where project_marks between 17and 19;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '19' at line 1
+MariaDB [unistudent]> select name, project_marks from lab_grades where project_marks between 17 and 19;
++---------+---------------+
+| name    | project_marks |
++---------+---------------+
+| Abir    |          18.5 |
+| abir    |          18.5 |
+| millati |            18 |
+| anwar   |            19 |
++---------+---------------+
+4 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select *from lab_grades where  major in ('cs','cse');
++------------+---------+-------+---------+--------------+---------------+------+------------+
+| student_id | name    | major | section | days_present | project_marks | cgpa | sub_date   |
++------------+---------+-------+---------+--------------+---------------+------+------------+
+| s001       | Abir    | cse   | 1       |           10 |          18.5 | 3.91 | 2024-01-10 |
+| s001       | abir    | cse   | 1       |           10 |          18.5 | 3.91 | 2018-09-15 |
+| s004       | millati | cse   | 1       |            9 |            18 | 3.89 | 2018-09-15 |
+| s005       | anwar   | cse   | 1       |           10 |            19 | 3.99 | 2018-08-17 |
++------------+---------+-------+---------+--------------+---------------+------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select *from lab_grades where project_marks>18 and submission
+    ->
+    -> select *from lab_grades where project_marks>18 and sub_date between '2018-08-01' and '2018-10-31';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'select *from lab_grades where project_marks>18 and sub_date between '2018-08-...' at line 3
+MariaDB [unistudent]> select * from lab_grades where project_marks > 18 and sub_date between '2018-08-01' and '2018-08-31';
++------------+-------+-------+---------+--------------+---------------+------+------------+
+| student_id | name  | major | section | days_present | project_marks | cgpa | sub_date   |
++------------+-------+-------+---------+--------------+---------------+------+------------+
+| s005       | anwar | cse   | 1       |           10 |            19 | 3.99 | 2018-08-17 |
++------------+-------+-------+---------+--------------+---------------+------+------------+
+1 row in set (0.001 sec)
+
+MariaDB [unistudent]> select *from lab_grades where name like 'a%';
++------------+-------+-------+---------+--------------+---------------+------+------------+
+| student_id | name  | major | section | days_present | project_marks | cgpa | sub_date   |
++------------+-------+-------+---------+--------------+---------------+------+------------+
+| s001       | Abir  | cse   | 1       |           10 |          18.5 | 3.91 | 2024-01-10 |
+| s001       | abir  | cse   | 1       |           10 |          18.5 | 3.91 | 2018-09-15 |
+| s005       | anwar | cse   | 1       |           10 |            19 | 3.99 | 2018-08-17 |
++------------+-------+-------+---------+--------------+---------------+------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [unistudent]> select *from lab_grades where name like '%a%a%a';
+Empty set (0.001 sec)
+
+MariaDB [unistudent]> select *from lab_grades where name like 'a___';
++------------+------+-------+---------+--------------+---------------+------+------------+
+| student_id | name | major | section | days_present | project_marks | cgpa | sub_date   |
++------------+------+-------+---------+--------------+---------------+------+------------+
+| s001       | Abir | cse   | 1       |           10 |          18.5 | 3.91 | 2024-01-10 |
+| s001       | abir | cse   | 1       |           10 |          18.5 | 3.91 | 2018-09-15 |
++------------+------+-------+---------+--------------+---------------+------+------------+
+2 rows in set (0.001 sec)
+
+MariaDB [unistudent]>
